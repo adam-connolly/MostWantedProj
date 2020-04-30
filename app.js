@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+      searchResults = searchByTraits();
       break;
       default:
     app(people); // restart app
@@ -68,7 +68,8 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  return foundPerson;
+  let newPerson = foundPerson[0];
+  return newPerson;
 }
 
 // alerts a list of people
@@ -104,3 +105,4 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
