@@ -199,8 +199,77 @@ function searchByWeight(people){
   }
 }
 
+//get eye color
+function searchByEyeColor(people){
+  let foundPerson;
+  if(people.length > 1){
+
+  
+  let input = promptFor("Do you know the person's eye color?", yesNo).toLowerCase();
+  
+  switch (input){
+    case 'yes': 
+      let input2 = promptFor("What is the person's eye color?(ex. Blue)", chars).toLowerCase;
+      foundPerson = people.filter(function(person){
+        if(person["eyeColor"] === input2){
+          return true
+        }
+        else{
+          return false;
+        }
+      })
+    case 'no':
+      foundPerson = people;
+      break;
+  }
+  return foundPerson;
+  }
+  else if(people.length === 1){
+    foundPerson = people[0];
+    return mainMenu(foundPerson, people)
+  }
+}
+
+//get occupation
+function searchByOccupation(people){
+  let foundPerson;
+  if(people.length > 1){
+
+  
+  let input = promptFor("Do you know the person's occupation?", yesNo).toLowerCase();
+  
+  switch (input){
+    case 'yes': 
+      let input2 = promptFor("What is the person's occupation?(ex. landscaper)", chars);
+      foundPerson = people.filter(function(person){
+        if(person["occupation"] === input2){
+          return true
+        }
+        else{
+          return false;
+        }
+      })
+    case 'no':
+      foundPerson = people;
+      break;
+  }
+  return foundPerson;
+  }
+  else if(people.length === 1){
+    foundPerson = people[0];
+    return mainMenu(foundPerson, people)
+  }
+}
+
+
 
 function searchByTraits(people){
   
-   searchByOccupation(searchByWeight(searchByHeight(searchByEyeColor(searchByGender(people)))));
+   let result = searchByOccupation(searchByWeight(searchByHeight(searchByEyeColor(searchByGender(people)))));
+   if(result.length === 1){
+     return mainMenu(result[0], people)
+   }
+   else if(result.length > 1){
+     return displayPeople(result);
+   }
 }
