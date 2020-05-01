@@ -6,6 +6,8 @@ Build all of your functions for displaying and gathering information below (GUI)
 // app is the function called to start the entire application
 function app(people){
   getAge(people);
+
+  let totalDescendants = [];
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
   switch(searchType){
@@ -46,6 +48,9 @@ function mainMenu(person, people){
     break;
     case "descendants":
     // TODO: get person's descendants
+    let list = [];
+    let descendants = getDescendants(person, people, list);
+    displayPeople(descendants);
     break;
     case "restart":
     app(people); // restart
@@ -84,7 +89,7 @@ function displayPeople(people){
 function displayPerson(person){
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  //personInfo += "Age: " + person.lastName + "\n";
+  personInfo += "Age: " + person.age + "\n";
   personInfo += "Height: " + person.height + "\n";
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
@@ -285,6 +290,8 @@ function searchByTraits(people){
    }
 }
 
+
+
 function getAge(people){
   let foundPerson = people.filter(function(person){
     let splitDob = person.dob.split("/");
@@ -305,6 +312,7 @@ function getAge(people){
     {
       age--;
     }
+<<<<<<< HEAD
     person.age = age;
   })  
 }
@@ -367,3 +375,55 @@ function getFamily(person, people){
   getChildren(person, people, family);
   return family;
 }
+=======
+     person["age"] = age;
+  })  
+}
+
+function getDescendants(person1, people, list){
+
+    let descendants = people.filter(function(person){
+    let parentId = person1.id;
+    if(parentId === (person.parents[0] || person.parents[1])){
+      return true;
+    }
+    else if(person.parent === null){
+      return false;
+    }
+    else {
+      return false;
+    }
+    
+  })
+
+  if(descendants.length === 0){
+    
+    return list;
+   
+
+      
+  }
+  else{
+    if (descendants.length === 1){
+      let x = descendants[0];
+      let y = [];
+      list.push(x);
+      getDescendants(x, people, list );
+    }
+    else if(descendants.length > 1){
+
+      descendants.forEach(element => {
+        list.push(element);
+        getDescendants(element, people, list)
+      });
+    }
+    
+  }
+  
+   return list;
+
+}
+
+
+
+>>>>>>> 4bbdbe4f4e59d76806ce24b6ca9a692f11bac8b1
