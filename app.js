@@ -2,10 +2,10 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-
+let AllThePeople;
 // app is the function called to start the entire application
 function app(people){
-  let ogPeople = people;
+  AllThePeople = people;
   getAge(people);
 
   let totalDescendants = [];
@@ -313,7 +313,11 @@ function searchByOccupation(people){
 
 function searchByTraits(people){
   
-   let result = searchByOccupation(searchByWeight(searchByHeight(searchByEyeColor(searchByGender(people)))));
+   let result = searchByOccupation()
+   if(result.length == 0){
+
+   }
+     searchByWeight(searchByHeight(searchByEyeColor(searchByGender(people)))));
    if(result.length === 1){
      return mainMenu(result[0], people)
    }
@@ -466,7 +470,7 @@ function noSearchResults(people){
   if(people.length === 0){
     alert("No results from your search");
     
-    return app(ogPeople); // restart
+    return app(People); // restart
   }
 }
 
