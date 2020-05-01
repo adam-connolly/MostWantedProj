@@ -41,7 +41,8 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
+    let family = getFamily(person, people);
+    displayPeople(family);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -285,7 +286,7 @@ function searchByTraits(people){
 }
 
 function getAge(people){
-  foundPerson = people.filter(function(person){
+  let foundPerson = people.filter(function(person){
     let splitDob = person.dob.split("/");
 
     let birthMonth = parseInt(splitDob[0]);
@@ -304,6 +305,65 @@ function getAge(people){
     {
       age--;
     }
-    let person.age = age;
+    person.age = age;
   })  
+}
+
+function getSpouse(foundPerson, family, people){
+  let spouse;
+  if (foundPerson.currentSpouse !== null){
+    spouse = people.filter(function(person){
+      if(foundPerson.currentSpouse === person.id){
+        return true;
+      }
+    });
+    let result = spouse[0];
+    family.push(result);    
+    return family;
+  }
+}
+function getParents(person, family){
+  if (person.parents.length > 0){
+    person.parents.forEach(element => {
+      family.push(element);
+      return true;
+    });
+  }
+  else{
+    return false;
+  }  
+  return family;
+}
+function getSiblings(foundPerson, people, family){
+  let siblings = people.filter(function(person){
+    if(foundPerson.parents[0] === (person.parents[0] || person.parents[1])|| (foundPerson.parents[1] === (person.parents[0] || person.parents[1]))){
+      family.push(person);
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return family;
+}
+function getChildren(foundPerson, people, family){
+  let children = people.filter(function(person){
+    let parentId = foundPerson.id;
+    if(parentId === (person.parents[0] || person.parents[1])){
+      family.push(person);
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return family;
+}
+function getFamily(person, people){
+  let family = [];
+  getSpouse(person, family, people);
+  getParents(person, family);
+  getSiblings(person, people, family);
+  getChildren(person, people, family);
+  return family;
 }
