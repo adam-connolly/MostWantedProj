@@ -312,7 +312,6 @@ function getAge(people){
     {
       age--;
     }
-<<<<<<< HEAD
     person.age = age;
   })  
 }
@@ -375,10 +374,6 @@ function getFamily(person, people){
   getChildren(person, people, family);
   return family;
 }
-=======
-     person["age"] = age;
-  })  
-}
 
 function getDescendants(person1, people, list){
 
@@ -426,4 +421,3 @@ function getDescendants(person1, people, list){
 
 
 
->>>>>>> 4bbdbe4f4e59d76806ce24b6ca9a692f11bac8b1
