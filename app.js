@@ -5,7 +5,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  getAge("11/13/1962");
+  getAge(people);
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
   switch(searchType){
@@ -284,24 +284,26 @@ function searchByTraits(people){
    }
 }
 
-function getAge(dob){
-  let splitDob = dob.split("/");
+function getAge(people){
+  foundPerson = people.filter(function(person){
+    let splitDob = person.dob.split("/");
 
-  let birthMonth = parseInt(splitDob[0]);
-  let birthDay = parseInt(splitDob[1]);
-  let birthYear = parseInt(splitDob[2]);
-  let todayDate = new Date();
-  let todayYear = todayDate.getFullYear();
-  let todayMonth = todayDate.getMonth();
-  let todayDay = todayDate.getDate();
-  let age = todayYear - birthYear;
-  if (todayMonth < birthMonth - 1)
-  {
-    age--;
-  }
-  if (birthMonth - 1 == todayMonth && todayDay < birthDay)
-  {
-    age--;
-  }
-  return age;
+    let birthMonth = parseInt(splitDob[0]);
+    let birthDay = parseInt(splitDob[1]);
+    let birthYear = parseInt(splitDob[2]);
+    let todayDate = new Date();
+    let todayYear = todayDate.getFullYear();
+    let todayMonth = todayDate.getMonth();
+    let todayDay = todayDate.getDate();
+    let age = todayYear - birthYear;
+    if (todayMonth < birthMonth - 1)
+    {
+      age--;
+    }
+    if (birthMonth - 1 == todayMonth && todayDay < birthDay)
+    {
+      age--;
+    }
+    let person.age = age;
+  })  
 }
