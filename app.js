@@ -468,7 +468,7 @@ function noSearchResults(people){
   if(people.length === 0){
     alert("No results from your search");
     
-    return app(ogPeople); // restart
+    return app(People); // restart
   }
 }
 
