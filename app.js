@@ -2,10 +2,10 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-
+let ogPeople;
 // app is the function called to start the entire application
 function app(people){
-  let ogPeople = people;
+  ogPeople = people;
   getAge(people);
 
   let totalDescendants = [];
@@ -143,6 +143,7 @@ function colorCheck(input){
 
 //search by gender
 function searchByGender(people){
+  
   let foundPerson;
   if(people.length > 1){
 
@@ -186,7 +187,7 @@ function searchByHeight(people){
   
   switch (input){
     case 'yes': 
-      let input2 = promptFor("What is the person's height?(ex. 71)", ints);
+      let input2 = parseInt(promptFor("What is the person's height?(ex. 71)", ints));
       foundPerson = people.filter(function(person){
         if(person["height"] === input2){
           return true
@@ -220,7 +221,7 @@ function searchByWeight(people){
   
   switch (input){
     case 'yes': 
-      let input2 = promptFor("What is the person's weight in pounds?(ex. 160)", ints);
+      let input2 = parseInt(promptFor("What is the person's weight in pounds?(ex. 160)", ints));
       foundPerson = people.filter(function(person){
         if(person["weight"] === input2){
           return true
@@ -312,6 +313,7 @@ function searchByOccupation(people){
 
 
 function searchByTraits(people){
+  
   
    let result = searchByOccupation(searchByWeight(searchByHeight(searchByEyeColor(searchByGender(people)))));
    if(result.length === 1){
