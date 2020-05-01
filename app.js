@@ -312,7 +312,6 @@ function getAge(people){
     {
       age--;
     }
-<<<<<<< HEAD
     person.age = age;
   })  
 }
@@ -330,10 +329,17 @@ function getSpouse(foundPerson, family, people){
     return family;
   }
 }
-function getParents(person, family){
+function getParents(person, family, people){
+  let parent;
   if (person.parents.length > 0){
     person.parents.forEach(element => {
-      family.push(element);
+      parent =people.filter(function(person){
+        if(person.id === element){
+          return true;
+        }
+      });
+      let parent1 = parent[0];
+      family.push(parent1);
       return true;
     });
   }
@@ -344,14 +350,18 @@ function getParents(person, family){
 }
 function getSiblings(foundPerson, people, family){
   let siblings = people.filter(function(person){
-    if(foundPerson.parents[0] === (person.parents[0] || person.parents[1])|| (foundPerson.parents[1] === (person.parents[0] || person.parents[1]))){
-      family.push(person);
+    
+      if(person != foundPerson){
+        if(foundPerson.parents[0] === (person.parents[0] || person.parents[1])|| (foundPerson.parents[1] === (person.parents[0] || person.parents[1]))){
+        family.push(person);
       return true;
-    }
+      }
+     
     else{
       return false;
     }
-  })
+  }})
+  
   return family;
 }
 function getChildren(foundPerson, people, family){
@@ -370,14 +380,10 @@ function getChildren(foundPerson, people, family){
 function getFamily(person, people){
   let family = [];
   getSpouse(person, family, people);
-  getParents(person, family);
+  getParents(person, family, people);
   getSiblings(person, people, family);
   getChildren(person, people, family);
   return family;
-}
-=======
-     person["age"] = age;
-  })  
 }
 
 function getDescendants(person1, people, list){
@@ -426,4 +432,3 @@ function getDescendants(person1, people, list){
 
 
 
->>>>>>> 4bbdbe4f4e59d76806ce24b6ca9a692f11bac8b1
